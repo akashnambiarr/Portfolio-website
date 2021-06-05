@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div className = "app">
       <TopBar menuOpen = {menuOpen} setMenuOpen = {setMenuOpen}/>
-      <Menu/>
+      <Menu menuOpen = {menuOpen} setMenuOpen = {setMenuOpen}/>
       <div className="sections">
         <Intro/>
         <Portfolio/>
