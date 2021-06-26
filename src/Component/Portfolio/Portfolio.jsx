@@ -1,10 +1,16 @@
 import './Portfolio.scss'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PortfolioList from '../portfolioList/PortfolioList';
+import { featuredPortfolio,
+        webPortfolio,
+    mobilePortfolio,
+designPortfolio,
+contentPortfolio } from '../../data';   
 
 export default function Portfolio() {
 
-    const [selected, setSelected]  = useState("feature")
+    const [selected, setSelected]  = useState("featured")
+    const [data, setData]  = useState([])
 
     const list = [
         {
@@ -27,12 +33,32 @@ export default function Portfolio() {
             id: "content",
             title: "Content",
         },
-        {
-            id: "featured",
-            title: "Featured",
-        },
+        
         
     ];
+
+    useEffect(() => {
+        switch(selected){
+            case "featured":
+                setData(featuredPortfolio);
+                break;
+            case "web":
+                setData(webPortfolio);
+                break;
+            case "mobile":
+                setData(mobilePortfolio);
+                break;
+            case "design":
+                setData(designPortfolio);
+                break;
+            case "content":
+                setData(contentPortfolio);
+                break;
+            default:
+                setData(featuredPortfolio);
+        }
+
+    }, [selected])
 
     return (
         <div className = "portfolio" id = "portfolio" >
@@ -40,38 +66,18 @@ export default function Portfolio() {
             <ul>
                {list.map((item) => (
                    <PortfolioList title = {item.title} active = 
-                   {selected === item.id} setSelected = {setSelected}/>
+                   {selected === item.id} setSelected = {setSelected}
+                   id = {item.id}/>
                ))}
             </ul>
             <div className="container">
-                <div className="item">
-                    <img className = "photo" src="https://www.mindinventory.com/blog/wp-content/uploads/2018/10/banking-app-1.png" alt="" />
-                    <h3>Banking App</h3>
+                {data.map((d) => (
+                    <div className="item">
+                    <img src = {d.img} alt="" />
+                    <h3>{d.title}</h3>
                 </div>
-                <div className="item">
-                    <img className = "photo" src="https://www.mindinventory.com/blog/wp-content/uploads/2018/10/banking-app-1.png" alt="" />
-                    <h3>Banking App</h3>
-                </div>
-                <div className="item">
-                    <img className = "photo" src="https://www.mindinventory.com/blog/wp-content/uploads/2018/10/banking-app-1.png" alt="" />
-                    <h3>Banking App</h3>
-                </div>
-                <div className="item">
-                    <img className = "photo" src="https://www.mindinventory.com/blog/wp-content/uploads/2018/10/banking-app-1.png" alt="" />
-                    <h3>Banking App</h3>
-                </div>
-                <div className="item">
-                    <img className = "photo" src="https://www.mindinventory.com/blog/wp-content/uploads/2018/10/banking-app-1.png" alt="" />
-                    <h3>Banking App</h3>
-                </div>
-                <div className="item">
-                    <img className = "photo" src="https://www.mindinventory.com/blog/wp-content/uploads/2018/10/banking-app-1.png" alt="" />
-                    <h3>Banking App</h3>
-                </div>
-                <div className="item">
-                    <img className = "photo" src="https://www.mindinventory.com/blog/wp-content/uploads/2018/10/banking-app-1.png" alt="" />
-                    <h3>Banking App</h3>
-                </div>
+                ))}
+                
             </div>
             
         </div>
