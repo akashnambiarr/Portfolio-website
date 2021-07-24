@@ -24,7 +24,8 @@
     height: 350px;
     display: flex;
     position: absolute;
-    left: -100vw;
+    left: 0vw;
+    transition: all 1s ease-out;
 
     .container {
       width: 100vw;
